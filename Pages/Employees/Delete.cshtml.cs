@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ManageEmployeeVacation.Data;
 using ManageEmployeeVacation.Models;
 
-namespace ManageEmployeeVacation.Pages.Employees
+namespace ManageEmployeeVacation.Pages.Employees  
 {
     public class DeleteModel : PageModel
     {
