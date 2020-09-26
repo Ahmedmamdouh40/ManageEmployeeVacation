@@ -22,18 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Employee[0].Gender)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee[0].VactationCasualBalance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee[0].VactationCasualUsed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee[0].VactationScheduleBalance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee[0].VactationScheduleUsed)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -48,18 +36,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VactationCasualBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VactationCasualUsed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VactationScheduleBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VactationScheduleUsed)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
