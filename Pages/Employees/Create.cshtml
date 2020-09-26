@@ -25,12 +25,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="Employee.Gender" class="control-label"></label>
-                <input asp-for="Employee.Gender" class="form-control" />
+                <select asp-for="Employee.Gender" class="form-control">
+                    <option value="" disabled selected hidden>Choose Gender...</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 <span asp-validation-for="Employee.Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee.VactationCasualBalance" class="control-label"></label>
-                <input asp-for="Employee.VactationCasualBalance" class="form-control" />
+                <input asp-for="Employee.VactationCasualBalance" class="form-control" value="7" />
                 <span asp-validation-for="Employee.VactationCasualBalance" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Employee.VactationScheduleBalance" class="control-label"></label>
-                <input asp-for="Employee.VactationScheduleBalance" class="form-control" />
+                <input asp-for="Employee.VactationScheduleBalance" class="form-control" value="14" />
                 <span asp-validation-for="Employee.VactationScheduleBalance" class="text-danger"></span>
             </div>
             <div class="form-group">
