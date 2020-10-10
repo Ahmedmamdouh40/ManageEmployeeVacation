@@ -29,6 +29,8 @@ namespace ManageEmployeeVacation
 
             services.AddDbContext<ManageEmployeeVacationContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ManageEmployeeVacationContext")));
+
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

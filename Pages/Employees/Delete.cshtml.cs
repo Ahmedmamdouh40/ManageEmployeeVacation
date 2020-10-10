@@ -12,24 +12,21 @@ namespace ManageEmployeeVacation.Pages.Employees
 {
     public class DeleteModel : PageModel
     {
-        private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
-
-        public DeleteModel(ManageEmployeeVacation.Data.ManageEmployeeVacationContext context)
+        private readonly IEmployeeRepository employeeRepository;
+        public DeleteModel(IEmployeeRepository employeeRepository)
         {
-            _context = context;
+            this.employeeRepository = employeeRepository;
         }
-
         [BindProperty]
         public Employee Employee { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Employee = employeeRepository.GetEmployee(id);
 
             if (Employee == null)
             {
@@ -38,20 +35,11 @@ namespace ManageEmployeeVacation.Pages.Employees
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            
 
-            Employee = await _context.Employee.FindAsync(id);
-
-            if (Employee != null)
-            {
-                _context.Employee.Remove(Employee);
-                await _context.SaveChangesAsync();
-            }
+            employeeRepository.Delete(id);
 
             return RedirectToPage("./Index");
         }

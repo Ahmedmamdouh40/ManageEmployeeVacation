@@ -12,29 +12,20 @@ namespace ManageEmployeeVacation.Pages.Employees
 {
     public class DetailsModel : PageModel
     {
-        private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
-
-        public DetailsModel(ManageEmployeeVacation.Data.ManageEmployeeVacationContext context)
+        // private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
+        private readonly IEmployeeRepository employeeRepository;
+        public DetailsModel(IEmployeeRepository employeeRepository)
         {
-            _context = context;
+            this.employeeRepository = employeeRepository;
         }
-
         public Employee Employee { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public void OnGet(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Employee = employeeRepository.GetEmployee(id);
 
-            if (Employee == null)
-            {
-                return NotFound();
-            }
-            return Page();
         }
+
     }
 }

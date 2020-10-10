@@ -12,18 +12,16 @@ namespace ManageEmployeeVacation.Pages.Employees
 {
     public class IndexModel : PageModel
     {
-        private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
+        private readonly IEmployeeRepository employeeRepository;
+        public IEnumerable<Employee> Employee { get; set; }
 
-        public IndexModel(ManageEmployeeVacation.Data.ManageEmployeeVacationContext context)
+        public IndexModel(IEmployeeRepository employeeRepository)
         {
-            _context = context;
+            this.employeeRepository = employeeRepository;
         }
-
-        public IList<Employee> Employee { get;set; }
-
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Employee = await _context.Employee.ToListAsync();
+            Employee = employeeRepository.GetAllEmployees();
         }
     }
 }

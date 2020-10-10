@@ -13,24 +13,24 @@ namespace ManageEmployeeVacation.Pages.Employees
 {
     public class EditModel : PageModel
     {
-        private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
+        private readonly IEmployeeRepository employeeRepository;
 
-        public EditModel(ManageEmployeeVacation.Data.ManageEmployeeVacationContext context)
+        public EditModel(IEmployeeRepository employeeRepository)
         {
-            _context = context;
+            this.employeeRepository = employeeRepository;
         }
 
         [BindProperty]
         public Employee Employee { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Employee = await _context.Employee.FirstOrDefaultAsync(m => m.ID == id);
+            Employee = employeeRepository.GetEmployee(id);
 
             if (Employee == null)
             {
@@ -48,30 +48,11 @@ namespace ManageEmployeeVacation.Pages.Employees
                 return Page();
             }
 
-            _context.Attach(Employee).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EmployeeExists(Employee.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            employeeRepository.Update(Employee);
 
             return RedirectToPage("./Index");
         }
 
-        private bool EmployeeExists(int id)
-        {
-            return _context.Employee.Any(e => e.ID == id);
-        }
+       
     }
 }

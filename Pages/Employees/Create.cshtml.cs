@@ -12,23 +12,19 @@ namespace ManageEmployeeVacation.Pages.Employees
 {
     public class CreateModel : PageModel
     {
-        private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
-
-        public CreateModel(ManageEmployeeVacation.Data.ManageEmployeeVacationContext context)
+        // private readonly ManageEmployeeVacation.Data.ManageEmployeeVacationContext _context;
+        private readonly IEmployeeRepository employeeRepository;
+        public CreateModel(IEmployeeRepository employeeRepository)
         {
-            _context = context;
+            this.employeeRepository = employeeRepository;
         }
-
         public IActionResult OnGet()
         {
             return Page();
         }
-
         [BindProperty]
         public Employee Employee { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -36,10 +32,10 @@ namespace ManageEmployeeVacation.Pages.Employees
                 return Page();
             }
 
-            _context.Employee.Add(Employee);
-            await _context.SaveChangesAsync();
+            employeeRepository.Add(Employee);
 
             return RedirectToPage("./Index");
         }
+
     }
 }
